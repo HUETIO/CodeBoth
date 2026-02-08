@@ -1,0 +1,77 @@
+{
+  "info": {
+    "_postman_id": "d4b6c3f9-4e7b-4b0f-9f4a-7f9b9f5b0c1a",
+    "name": "Portafolio Dash API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "GEMINI_API_KEY", "value": "REEMPLAZA_CON_TU_GEMINI_KEY" },
+    { "key": "TMDB_API_KEY", "value": "REEMPLAZA_CON_TU_TMDB_KEY" },
+    { "key": "FIREBASE_API_KEY", "value": "REEMPLAZA_CON_TU_FIREBASE_KEY" },
+    { "key": "FIREBASE_EMAIL", "value": "usuario@correo.com" },
+    { "key": "FIREBASE_PASSWORD", "value": "tu_password" }
+  ],
+  "item": [
+    {
+      "name": "Gemini - Generate Content",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key={{GEMINI_API_KEY}}",
+          "protocol": "https",
+          "host": ["generativelanguage", "googleapis", "com"],
+          "path": ["v1beta", "models", "gemini-3-flash-preview:generateContent"],
+          "query": [
+            { "key": "key", "value": "{{GEMINI_API_KEY}}" }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"contents\": [\n    { \"parts\": [ { \"text\": \"Hola Gemini\" } ] }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "TMDB - Popular Movies",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "https://api.themoviedb.org/3/movie/popular?api_key={{TMDB_API_KEY}}&language=es-ES&page=1",
+          "protocol": "https",
+          "host": ["api", "themoviedb", "org"],
+          "path": ["3", "movie", "popular"],
+          "query": [
+            { "key": "api_key", "value": "{{TMDB_API_KEY}}" },
+            { "key": "language", "value": "es-ES" },
+            { "key": "page", "value": "1" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Firebase Auth - Sign In With Password",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{FIREBASE_API_KEY}}",
+          "protocol": "https",
+          "host": ["identitytoolkit", "googleapis", "com"],
+          "path": ["v1", "accounts:signInWithPassword"],
+          "query": [
+            { "key": "key", "value": "{{FIREBASE_API_KEY}}" }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{FIREBASE_EMAIL}}\",\n  \"password\": \"{{FIREBASE_PASSWORD}}\",\n  \"returnSecureToken\": true\n}"
+        }
+      }
+    }
+  ]
+}
